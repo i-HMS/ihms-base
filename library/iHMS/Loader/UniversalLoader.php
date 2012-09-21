@@ -68,6 +68,22 @@ class UniversalLoader implements ISplAutoloader
     /**
      * Set autoloader options
      *
+     * Expect an array with the following structure:
+     * <code>
+     * array(
+     *      'namespaces' => array(
+     *         'iHMS'     => '/path/to/iHMS/library',
+     *      ),
+     *      'prefixes' => array(
+     *          'Twig_'     => '/path/to/Twig/library',
+     *      ),
+     *      'classMap => array(
+     *          'classname' => 'path/to/class/file
+     *      ),
+     *      'useIncludePath' => true,
+     * )
+     * </code>
+     *
      * @throws \InvalidArgumentException in case invalid option is provided
      * @param array $options Autoloader options
      * @return UniversalLoader
@@ -99,7 +115,7 @@ class UniversalLoader implements ISplAutoloader
     }
 
     /**
-     * Register a namespace or prefix
+     * Add a namespace or prefix
      *
      * @param string $prefix The class prefix
      * @param array|string $path The location(s) of the class
@@ -118,11 +134,11 @@ class UniversalLoader implements ISplAutoloader
     }
 
     /**
-     * Returns all registered prefixes
+     * Returns all registered namespaces and prefixes
      *
      * @return array
      */
-    public function getPrefixes()
+    public function getNamespacesAndPrefixes()
     {
         return $this->prefixes;
     }
@@ -228,8 +244,6 @@ class UniversalLoader implements ISplAutoloader
             if ($this->useIncludePath) {
                 $file = stream_resolve_include_path($classPath);
             }
-
-            $this->classMap[$class] = false;
         }
 
         if ($file) {
@@ -237,6 +251,6 @@ class UniversalLoader implements ISplAutoloader
             return true;
         }
 
-        return false;
+        return $this->classMap[$class] = false;
     }
 }
