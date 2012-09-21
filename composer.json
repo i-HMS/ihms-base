@@ -2,6 +2,7 @@
 	"name":"ihms/ihms-base",
 	"type":"indep",
 	"description":"iHMS core library",
+	"version": "0.1",
 	"authors":[
 		{
 			"name":"Laurent Declercq",
@@ -25,7 +26,7 @@
 	],
 	"require":{
 		"PHP":">=5.3.3",
-		"ihms/ihms-installer":"*"
+		"ihms/ihms-installer":"0.1"
 	},
 	"autoload":{
 		"psr-0":{
