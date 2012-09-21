@@ -14,6 +14,15 @@
 		"ihms",
 		"library"
 	],
+	"repositories":[
+		{
+			"packagist":false
+		},
+		{
+			"type":"composer",
+			"url":"http://packages.i-hms.net/"
+		}
+	],
 	"require":{
 		"PHP":">=5.3.3",
 		"ihms/ihms-installer":"*"
@@ -22,16 +31,6 @@
 		"psr-0":{
 			"iHMS\\":"library/"
 		}
-	},
-	"replace":{
-		"ihms/ihms-config":"self.version",
-		"ihms/ihms-eventdispatcher":"self.version",
-		"ihms/ihms-http":"self.version",
-		"ihms/ihms-kernel":"self.version",
-		"ihms/ihms-library":"self.version",
-		"ihms/ihms-loader":"self.version",
-		"ihms/ihms-modulehandler":"self.version",
-		"ihms/ihms-servicelocator":"self.version"
 	},
 	"extra":{
 		"branch-alias":{
