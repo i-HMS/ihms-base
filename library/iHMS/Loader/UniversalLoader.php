@@ -43,8 +43,6 @@ require_once __DIR__ . '/ISplAutoloader.php';
  *
  *  * The PEAR naming convention for classes (http://pear.php.net/).
  *
- * Note: Most part of the code is derived from the composer loader class.
- *
  * @package     iHMS_Loader
  * @copyright   2012 by iHMS Team
  * @author      Laurent Declercq <l.declercq@nuxwin.com>
@@ -68,7 +66,40 @@ class UniversalLoader implements ISplAutoloader
     protected $useIncludePath = false;
 
     /**
-     * Register
+     * Set autoloader options
+     *
+     * @throws \InvalidArgumentException in case invalid option is provided
+     * @param array $options Autoloader options
+     * @return UniversalLoader
+     */
+    public function setOptions(array $options)
+    {
+        foreach ($options as $option => $value) {
+            switch ($option) {
+                case 'prefixes':
+                case 'namespaces':
+                    foreach ($value as $k => $v) {
+                        $this->add($k, $v);
+                    }
+                    break;
+                case 'classMap':
+                    $this->addClassMap($value);
+                    break;
+                case 'useIncludePath':
+                    $this->setUseIncludePath($value);
+                    break;
+                default:
+                    throw new \InvalidArgumentException(
+                        sprintf('%s(): Invalid autoloader option "%s"', __METHOD__, $options)
+                    );
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Register a namespace or prefix
      *
      * @param string $prefix The class prefix
      * @param array|string $path The location(s) of the class

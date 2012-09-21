@@ -38,7 +38,13 @@ namespace iHMS\Loader;
  */
 interface ISplAutoloader
 {
-    public function setOptions();
+    /**
+     * Set autoloader options
+     *
+     * @param array $options Autoloader options
+     * @return ISplAutoloader
+     */
+    public function setOptions(array $options);
 
     /**
      * Register the autoloader onto the spl_autoload registry
@@ -58,7 +64,7 @@ interface ISplAutoloader
      * Try to autoload the given class
      *
      * @param string $class Class name
-     * @return mixed
+     * @return bool true on success, false otherwise
      */
     public function autoload($class);
 }
