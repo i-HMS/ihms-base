@@ -90,7 +90,7 @@ class UniversalLoader implements ISplAutoloader
                     break;
                 default:
                     throw new \InvalidArgumentException(
-                        sprintf('%s(): Invalid autoloader option "%s"', __METHOD__, $options)
+                        sprintf('%s(): Invalid autoloader option "%s"', __METHOD__, $option)
                     );
             }
         }
