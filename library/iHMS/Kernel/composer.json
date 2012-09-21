@@ -1,0 +1,30 @@
+{
+	"name":"ihms/ihms-kernel",
+	"description":"provides iHMS application kernel",
+	"authors":[
+		{
+			"name":"Laurent Declercq",
+			"email":"l.declercq@nuxwin.com",
+			"role":"project lead / developer"
+		}
+	],
+	"license":"GPL-2.0+",
+	"keywords":[
+		"ihms",
+		"kernel"
+	],
+	"autoload":{
+		"psr-0":{
+			"iHMS\\Kernel":""
+		}
+	},
+	"target-dir":"iHMS/Kernel",
+	"require":{
+		"php":">=5.3.3",
+		"ihms/ihms-eventdispatcher":"self.version",
+		"ihms/ihms-modulehandler":"self.version",
+		"ihms/ihms-servicelocator":"self.version",
+		"ihms/ihms-config":"self.version",
+		"ihms/ihms-http":"self.version"
+	}
+}

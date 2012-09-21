@@ -1,0 +1,26 @@
+{
+	"name":"ihms/ihms-http",
+	"description":"provides interface to HTTP messages",
+	"authors":[
+		{
+			"name":"Laurent Declercq",
+			"email":"l.declercq@nuxwin.com",
+			"role":"project lead / developer"
+		}
+	],
+	"license":"GPL-2.0+",
+	"keywords":[
+		"ihms",
+		"http"
+	],
+	"autoload":{
+		"psr-0":{
+			"iHMS\\Http":""
+		}
+	},
+	"target-dir":"iHMS/Http",
+	"require":{
+		"php":">=5.3.3",
+		"ihms/ihms-library":"self.version"
+	}
+}

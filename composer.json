@@ -1,0 +1,41 @@
+{
+	"name":"ihms/ihms-base",
+	"type":"indep",
+	"description":"iHMS core library",
+	"authors":[
+		{
+			"name":"Laurent Declercq",
+			"email":"l.declercq@nuxwin.com",
+			"role":"project lead / developer"
+		}
+	],
+	"license":"GPL-2.0+",
+	"keywords":[
+		"ihms",
+		"library"
+	],
+	"require":{
+		"PHP":">=5.3.3",
+		"ihms/ihms-installer":"*"
+	},
+	"autoload":{
+		"psr-0":{
+			"iHMS\\":"library/"
+		}
+	},
+	"replace":{
+		"ihms/ihms-config":"self.version",
+		"ihms/ihms-eventdispatcher":"self.version",
+		"ihms/ihms-http":"self.version",
+		"ihms/ihms-kernel":"self.version",
+		"ihms/ihms-library":"self.version",
+		"ihms/ihms-loader":"self.version",
+		"ihms/ihms-modulehandler":"self.version",
+		"ihms/ihms-servicelocator":"self.version"
+	},
+	"extra":{
+		"branch-alias":{
+			"dev-master":"1.0-dev"
+		}
+	}
+}

@@ -1,4 +1,4 @@
 ihms-base
 =========
 
-iHMS software base library
+iHMS software base library (prototype state)
