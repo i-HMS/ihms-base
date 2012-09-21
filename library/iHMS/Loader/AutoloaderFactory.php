@@ -123,7 +123,7 @@ class AutoloaderFactory
      * @param string $classname Autoloader classname
      * @return bool|ISplAutoloader
      */
-    public function getAutoloader($classname)
+    public static function getAutoloader($classname)
     {
         if(isset(static::$loaders[$classname])) {
             return static::$loaders[$classname];
@@ -137,7 +137,7 @@ class AutoloaderFactory
      *
      * @return ISplAutoloader
      */
-    protected function getDefaultLoader()
+    protected static function getDefaultLoader()
     {
         if (null === static::$defaultLoader) {
             if (!class_exists(static::DEFAULT_LOADER)) {

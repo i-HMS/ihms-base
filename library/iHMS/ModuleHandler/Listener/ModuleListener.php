@@ -36,7 +36,7 @@ use iHMS\ModuleHandler\ABootstrapper as Bootstrapper;
 use iHMS\ModuleHandler\Listener\ConfigListener;
 use iHMS\ModuleHandler\Listener\AListener;
 use iHMS\ModuleHandler\ModuleEvent;
-use iHMS\Loader\UniversalAutoloader as Loader;
+use iHMS\Loader\AutoloaderFactory as Loader;
 
 /**
  * ModuleListener class
@@ -115,20 +115,22 @@ class ModuleListener extends AListener implements IEventSubscriber
      *
      * @param ModuleEvent $event
      * @return void
+     * @TODO add module specific autoloader
      */
     public function autoloaderListener(ModuleEvent $event)
     {
         /** @var $moduleHandler \iHMS\ModuleHandler\ModuleHandler */
         $moduleHandler = $event->getContext();
         $moduleList = $moduleHandler->getModules();
-        $moduleDirectories = $this->getOption('module_directories', array('./module'));
+        $moduleDirectories = $this->getOption('module_directories', './module');
 
-        $loader = Loader::getInstance();
+        Loader::factory();
+
+        /** @var $loader \iHMS\Loader\UniversalLoader */
+        $loader = Loader::getAutoloader(Loader::DEFAULT_LOADER);
 
         foreach ($moduleList as $moduleName) {
-            foreach ($moduleDirectories as $moduleDirectory) {
-                $loader->registerNamespace($moduleName, $moduleDirectory);
-            }
+            $loader->add($moduleName, $moduleDirectories);
         }
     }
 
@@ -160,17 +162,7 @@ class ModuleListener extends AListener implements IEventSubscriber
         $moduleBootstrapper = $event->getModuleBootstrapper();
 
         if (method_exists($moduleBootstrapper, 'getAutoloaderConfig')) {
-            $autoLoaderConfig = $moduleBootstrapper->getAutoloaderConfig();
-
-            $loader = Loader::getInstance();
-
-            if (!empty($autoLoaderConfig['namespaces'])) {
-                $loader->registerNamespaces($autoLoaderConfig['namespaces']);
-            }
-
-            if (!empty($autoLoaderConfig['prefixes'])) {
-                $loader->registerPrefixes($autoLoaderConfig['prefixes']);
-            }
+            Loader::factory($moduleBootstrapper->getAutoloaderConfig());
         }
     }
 
