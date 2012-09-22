@@ -23,6 +23,7 @@
 			"url":"http://packages.i-hms.net/"
 		}
 	],
+	"minimum-stability": "dev",
 	"require":{
 		"PHP":">=5.3.3",
 		"ihms/ihms-installer":"dev-master"
