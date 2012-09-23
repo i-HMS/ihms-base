@@ -74,27 +74,27 @@ class AutoloaderFactory
      * (unless the class has already been loaded).
      *
      * @throws \InvalidArgumentException
-     * @param array $options
+     * @param array $options Pairs of autoloader_class_name/autoloader_options
      * @return void
      */
     public static function factory(array $options = null)
     {
         if (null !== $options) {
-            foreach ($options as $class => $autoloaderOptions) {
+            foreach ($options as $class => $loaderOptions) {
                 if (!isset(static::$loaders[$class])) { // Autoloader not already instantiated
                     $loader = static::getDefaultLoader();
 
                     // Trying to load the given autoloader with default autoloader
                     if (!class_exists($class) && !$loader->autoload($class)) {
                         throw new \InvalidArgumentException(
-                            sprintf('%s(): Unable to load the Autoloader class "%s"', __METHOD__, $class)
+                            sprintf('%s(): Unable to load the autoloader class "%s"', __METHOD__, $class)
                         );
                     }
 
                     if ($class === static::DEFAULT_LOADER) {
-                        $loader->setOptions($options);
+                        $loader->setOptions($loaderOptions);
                     } else {
-                        $loader = new $class($options);
+                        $loader = new $class($loaderOptions);
 
                         if (!$loader instanceof ISplAutoloader) {
                             throw new \InvalidArgumentException(
@@ -105,8 +105,8 @@ class AutoloaderFactory
 
                     $loader->register(); // Register the loader on the spl autoloader registry
                     static::$loaders[$class] = $loader;
-                } else { // Autoloader instance already there, we are so symply add options for it
-                    static::$loaders[$class]->setOptions($options);
+                } else { // Autoloader instance already there, we are so simply add options for it
+                    static::$loaders[$class]->setOptions($loaderOptions);
                 }
             }
         } elseif (!isset(static::$loaders[static::DEFAULT_LOADER])) {

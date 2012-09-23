@@ -39,7 +39,7 @@ namespace iHMS\Loader;
 interface ISplAutoloader
 {
     /**
-     * Set autoloader options
+     * Set/add autoloader options
      *
      * @param array $options Autoloader options
      * @return ISplAutoloader

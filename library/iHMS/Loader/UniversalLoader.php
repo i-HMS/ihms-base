@@ -66,7 +66,7 @@ class UniversalLoader implements ISplAutoloader
     protected $useIncludePath = false;
 
     /**
-     * Set autoloader options
+     * Set/add autoloader options
      *
      * Expect an array with the following structure:
      * <code>
