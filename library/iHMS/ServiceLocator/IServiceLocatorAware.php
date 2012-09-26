@@ -44,10 +44,10 @@ interface IServiceLocatorAware
      * Set service locator
      *
      * @abstract
-     * @param IServiceLocator $ServiceLocator
+     * @param IServiceLocator $serviceLocator
      * @return IServiceLocatorAware
      */
-    public function setServiceLocator(IServiceLocator $ServiceLocator);
+    public function setServiceLocator(IServiceLocator $serviceLocator);
 
     /**
      * Returns service locator

@@ -29,8 +29,8 @@
 namespace iHMS\Kernel;
 
 use iHMS\EventDispatcher\Event;
-use iHMS\Http\Request;
-use iHMS\Http\Response;
+use iHMS\Library\IMessage as Request;
+use iHMS\Library\IMessage as Response;
 use iHMS\Router\IRouter;
 
 /**

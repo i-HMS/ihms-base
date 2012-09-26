@@ -241,7 +241,7 @@ class UniversalLoader implements ISplAutoloader
                 }
             }
 
-            if ($this->useIncludePath) {
+            if (!$file && $this->useIncludePath) {
                 $file = stream_resolve_include_path($classPath);
             }
         }
