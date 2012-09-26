@@ -191,8 +191,6 @@ class EventDispatcher implements IEventDispatcher
             }
         }
 
-        echo "The <strong>" . $eventObject->getName()  . "</strong> event has been triggered<br />";
-
         // Enforce type hinting for condition callback
         if ($conditionCallback && !is_callable($conditionCallback)) {
             throw new \InvalidArgumentException(
