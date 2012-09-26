@@ -31,7 +31,6 @@ namespace iHMS\Kernel\Service;
 use iHMS\ServiceLocator\IServiceFactory;
 use iHMS\ServiceLocator\IServiceLocator;
 use iHMS\Http\Request as HttpRequest;
-use iHMS\Console\Request as ConsoleRequest;
 
 /**
  * RequestFactory class
@@ -47,15 +46,18 @@ class RequestFactory implements IServiceFactory
      * Create and returns request service instance
      *
      * @static
+     * @throws \RuntimeException
      * @param IServiceLocator $serviceLocator
-     * @return HttpRequest|ConsoleRequest
+     * @return HttpRequest
      */
     public static function factory(IServiceLocator $serviceLocator)
     {
         if (PHP_SAPI !== 'cli') {
             return HttpRequest::createFromPhpEnvironment();
+        } else {
+            throw new \RuntimeException(
+                sprintf('%s(): Console request not implemented yet', __METHOD__)
+            );
         }
-
-        return new ConsoleRequest();
     }
 }

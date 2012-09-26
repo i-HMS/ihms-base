@@ -31,7 +31,6 @@ namespace iHMS\Kernel\Service;
 use iHMS\ServiceLocator\IServiceFactory;
 use iHMS\ServiceLocator\IServiceLocator;
 use iHMS\Http\Response as HttpResponse;
-use iHMS\Console\Response as ConsoleResponse;
 
 /**
  * ResponseFactory class
@@ -47,6 +46,7 @@ class ResponseFactory implements IServiceFactory
      * Create and returns response service instance
      *
      * @static
+     * @throws \RuntimeException
      * @param IServiceLocator $serviceLocator
      * @return \iHMS\Library\IMessage
      */
@@ -54,8 +54,10 @@ class ResponseFactory implements IServiceFactory
     {
         if (PHP_SAPI !== 'cli') {
             return new HttpResponse();
+        } else {
+            throw new \RuntimeException(
+                sprintf('%s(): Console response not implemented yet', __METHOD__)
+            );
         }
-
-        return new ConsoleResponse;
     }
 }
