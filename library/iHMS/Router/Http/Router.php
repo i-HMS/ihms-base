@@ -128,12 +128,12 @@ class Router implements IRouter
     /**
      * Set route locator
      *
-     * @param RouteLocator $routeManager
+     * @param RouteLocator $routeLocator
      * @return Router
      */
-    public function setRouteLocator(RouteLocator $routeManager)
+    public function setRouteLocator(RouteLocator $routeLocator)
     {
-        $this->routeLocator = $routeManager;
+        $this->routeLocator = $routeLocator;
 
         return $this;
     }
