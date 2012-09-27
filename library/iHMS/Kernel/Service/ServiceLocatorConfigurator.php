@@ -46,36 +46,70 @@ class ServiceLocatorConfigurator implements IServiceLocatorConfigurator
     /**
      * @var array Services created via constructors
      */
-    protected $_constructors = array(
+    protected $constructors = array(
         'SharedEventDispatcher' => 'iHMS\EventDispatcher\SharedEventDispatcher'
     );
 
     /**
      * @var array Services created via factories
      */
-    protected $_factories = array(
+    protected $factories = array(
         'EventDispatcher' => 'iHMS\Kernel\Service\EventDispatcherFactory',
         'Kernel' => 'iHMS\Kernel\Service\KernelFactory',
         'ModuleHandler' => 'iHMS\Kernel\Service\ModuleHandlerFactory',
         'Request' => 'iHMS\Kernel\Service\RequestFactory',
         'Response' => 'iHMS\Kernel\Service\ResponseFactory',
+        'Router' => 'iHMS\Kernel\Service\RouterFactory',
     );
 
     /**
      * @var array Service aliases
      */
-    protected $_aliases = array(
+    protected $aliases = array(
         'iHMS\EventDispatcher\IEventDispatcher' => 'EventDispatcher',
         'iHMS\Request\IRequest' => 'Request',
         'iHMS\Request\IResponse' => 'Response',
     );
 
     /**
-     * @var array Pairs of serviceName/Flags indicating whether service is shared; Service are shared by default
+     * @var array Pairs of serviceName/Flags indicating whether service is shared; Services are shared by default
      */
-    protected $_shared = array(
+    protected $shared = array(
         'EventDispatcher' => false // The EventDispatcher service is not shared
     );
+
+    /**
+     * Constructor
+     *
+     * @throws \InvalidArgumentException in case $config is not a Config object nor an array
+     * @param \iHMS\Config\Config|array $config Configuration
+     */
+    public function __construct($config)
+    {
+        if ($config instanceof \iHMS\Config\Config) {
+            $config->toArray();
+        } elseif (!is_array($config)) {
+            throw new \InvalidArgumentException(
+                sprintf('%s(): Expects a config object or an array; received %s', __METHOD__, gettype($config))
+            );
+        }
+
+        if (isset($config['constructors'])) {
+            $this->invokables = array_merge($this->invokables, $config['invokables']);
+        }
+
+        if (isset($config['factories'])) {
+            $this->factories = array_merge($this->factories, $config['factories']);
+        }
+
+        if (isset($config['aliases'])) {
+            $this->aliases = array_merge($this->aliases, $config['aliases']);
+        }
+
+        if (isset($config['shared'])) {
+            $this->shared = array_merge($this->shared, $config['shared']);
+        }
+    }
 
     /**
      * Configure the given service locator
@@ -88,21 +122,21 @@ class ServiceLocatorConfigurator implements IServiceLocatorConfigurator
         /** @var $serviceLocator \iHMS\ServiceLocator\ServiceLocator */
 
         // Set services that are created via constructors
-        foreach ($this->_constructors as $serviceName => $className) {
+        foreach ($this->constructors as $serviceName => $className) {
             $serviceLocator->setConstructor($serviceName, $className);
         }
 
         // Set services that are created via factories
-        foreach ($this->_factories as $serviceName => $className) {
+        foreach ($this->factories as $serviceName => $className) {
             $serviceLocator->setFactory($serviceName, $className);
         }
 
         // Set service aliases
-        foreach ($this->_aliases as $aliasName => $serviceName) {
+        foreach ($this->aliases as $aliasName => $serviceName) {
             $serviceLocator->setAlias($aliasName, $serviceName);
         }
 
-        foreach ($this->_shared as $serviceName => $flag) {
+        foreach ($this->shared as $serviceName => $flag) {
             $serviceLocator->setShared($serviceName, $flag);
         }
 

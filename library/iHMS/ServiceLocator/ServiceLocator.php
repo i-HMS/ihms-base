@@ -73,6 +73,11 @@ class ServiceLocator implements IServiceLocator, IServiceInitializer
     protected $shared = array();
 
     /**
+     * @var bool Flag indicating whether services are shared by default
+     */
+    protected $sharedByDefault = true;
+
+    /**
      * @var callable[] Stack of service initializers
      */
     protected $initializers = array();
@@ -112,6 +117,29 @@ class ServiceLocator implements IServiceLocator, IServiceInitializer
     public function getAllowOverride()
     {
         return $this->allowOverride;
+    }
+
+    /**
+     * Set value of flag indicating whether services are shared by default
+     *
+     * @param bool $flag Flag indicating whether services are shared by default
+     * @return ServiceLocator
+     */
+    public function setSharedByDefault($flag)
+    {
+        $this->sharedByDefault = (bool)$flag;
+
+        return $this;
+    }
+
+    /**
+     * Set value of flag indicating whether services are shared by default
+     *
+     * @return bool
+     */
+    public function getSharedByDefault()
+    {
+        return $this->sharedByDefault;
     }
 
     /**
@@ -235,11 +263,11 @@ class ServiceLocator implements IServiceLocator, IServiceInitializer
 
         if (!$service && !is_array($service)) {
             throw new \RuntimeException(
-                sprintf("%s(): Unable to create the service '%s': no service could be found", __METHOD__, $name)
+                sprintf("%s(): Unable to create the service '%s': No such service is registered", __METHOD__, $name)
             );
         }
 
-        if (!isset($this->shared[$name]) || $this->shared[$name]) {
+        if ($this->getSharedByDefault() && (!isset($this->shared[$name]) || $this->shared[$name])) {
             $this->services[$name] = $service;
         }
 

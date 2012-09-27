@@ -174,9 +174,10 @@ class Kernel implements IEventDispatcherAware
      */
     public function bootstrap()
     {
+        $serviceLocator = $this->getServiceLocator();
         $eventDispatcher = $this->getEventDispatcher();
         $eventDispatcher->addEventListener(
-            KernelEvent::BEFORE_BOOTSTRAP_EVENT, $this->getServiceLocator()->get('ModuleHandler')
+            KernelEvent::BEFORE_BOOTSTRAP_EVENT, $serviceLocator->get('ModuleHandler')
         );
 
         // Setup kernel event
@@ -184,8 +185,8 @@ class Kernel implements IEventDispatcherAware
         $kernelEvent->setContext($this);
         $kernelEvent
             ->setRequest($this->getRequest())
-            ->setResponse($this->getResponse());
-        //->setRouter($servicLocator->get('Router'));
+            ->setResponse($this->getResponse())
+            ->setRouter($serviceLocator->get('Router'));
 
         $eventDispatcher->dispatchEvent(KernelEvent::BEFORE_BOOTSTRAP_EVENT, $kernelEvent);
         $eventDispatcher->dispatchEvent(KernelEvent::BOOTSTRAP_EVENT, $kernelEvent);
@@ -209,7 +210,7 @@ class Kernel implements IEventDispatcherAware
      * Convenience method to setup application
      *
      * @throws \InvalidArgumentException in case $config is not an array nor a Config object
-     * @param Array|Config $config
+     * @param array|Config $config
      * @return Kernel
      */
     public static function setupKernel($config = null)
@@ -219,7 +220,7 @@ class Kernel implements IEventDispatcherAware
                 $config = new Config($config);
             } elseif (!$config instanceof $config) {
                 throw new \InvalidArgumentException(
-                    sprintf('%s(): expects an array or config object, received %s', __METHOD__, gettype($config))
+                    sprintf('%s(): expects a config object or an array, received %s', __METHOD__, gettype($config))
                 );
             }
         } else {
@@ -228,9 +229,7 @@ class Kernel implements IEventDispatcherAware
 
         // Setup service locator
         $serviceLocator = new ServiceLocator(
-            new Service\ServiceLocatorConfigurator(
-                isset($config['service_locator']) ? $config['service_locator'] : new Config()
-            )
+            new Service\ServiceLocatorConfigurator($config->get('service_locator', array()))
         );
 
         // Set Config service
