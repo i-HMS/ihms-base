@@ -200,7 +200,6 @@ class HeaderCollection implements \Iterator, \Countable
      *
      * @param array|string $partialHeaderNames Partial header name(s) to match against
      * @return bool|IHeader|HeaderCollection
-     * @todo UnitTest
      */
     public function getFirstPartialMatchHeader($partialHeaderNames)
     {
@@ -212,7 +211,7 @@ class HeaderCollection implements \Iterator, \Countable
                 }
             );
 
-            if (!empty($headerPartialNames)) {
+            if (!empty($partialHeaderNamesMatches)) {
                 return $this->getHeader(array_shift($partialHeaderNamesMatches));
             }
         }
