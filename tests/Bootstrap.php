@@ -16,7 +16,7 @@ if (class_exists('PHPUnit_Runner_Version', true)) {
 unset($phpUnitVersion);
 
 /*
- * Determine the root, library, and tests directories of the framework distribution.
+ * Determine the root, library, and tests directories of the i-HMS base library.
  */
 $ihmsRoot = realpath(dirname(__DIR__));
 $ihmsCoreLibrary = "$ihmsRoot/library";
