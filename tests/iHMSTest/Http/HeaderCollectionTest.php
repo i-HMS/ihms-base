@@ -142,7 +142,6 @@ class HeaderCollectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers iHMS\Http\HeaderCollection::getFirstPartialMatchHeader
      */
-    /*
     public function testGetFirstPartialMatchHeader()
     {
         $headerCollection = new HeaderCollection(
@@ -158,7 +157,6 @@ class HeaderCollectionTest extends \PHPUnit_Framework_TestCase
             'iHMS\Http\HeaderCollection', $headerCollection->getFirstPartialMatchHeader(array('qux', 'bar', 'foo', 'baz'))
         );
     }
-    */
 
     /**
      * @covers iHMS\Http\HeaderCollection::removeHeader
