@@ -41,7 +41,7 @@ namespace iHMS\EventDispatcher\Listener;
 class EventListenerResults implements \IteratorAggregate, \Countable, \ArrayAccess
 {
     /**
-     * @var array Stack of result
+     * @var array Result stack
      */
     protected $results = array();
 

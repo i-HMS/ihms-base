@@ -142,8 +142,7 @@ class ServiceLocatorConfigurator implements IServiceLocatorConfigurator
 
         // Add initializer for event dispatcher aware objects
         $serviceLocator->addInitializer(
-            function($service) use($serviceLocator)
-            {
+            function ($service) use ($serviceLocator) {
                 /** @var $service \iHMS\EventDispatcher\IEventDispatcherAware */
                 if ($service instanceof IEventDispatcherAware) {
 
@@ -155,8 +154,7 @@ class ServiceLocatorConfigurator implements IServiceLocatorConfigurator
 
         // Add initializer for service locator aware objects
         $serviceLocator->addInitializer(
-            function($service) use($serviceLocator)
-            {
+            function ($service) use ($serviceLocator) {
                 if ($service instanceof IServiceLocatorAware) {
                     /** @var $service \iHMS\ServiceLocator\IServiceLocatorAware */
                     $service->setServiceLocator($serviceLocator);

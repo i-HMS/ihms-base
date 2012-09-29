@@ -93,7 +93,6 @@ class EventDispatcher implements IEventDispatcher
         }
 
         $eventListener = new EventListener($eventListenerCallback, $event, $priority);
-
         $this->events[$event]->addEventListener($eventListener, $priority);
 
         return $eventListener;
@@ -109,13 +108,7 @@ class EventDispatcher implements IEventDispatcher
     {
         $event = $eventListener->getEventName();
 
-        if (!isset($this->events[$event])) {
-            return false;
-        }
-
-        $ret = $this->events[$event]->removeEventListener($eventListener);
-
-        if (!$ret) {
+        if (!isset($this->events[$event]) || !$this->events[$event]->removeEventListener($eventListener)) {
             return false;
         }
 

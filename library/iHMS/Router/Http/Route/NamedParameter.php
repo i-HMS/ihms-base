@@ -143,7 +143,7 @@ class NamedParameter implements IRoute
      *
      * @return string
      */
-    protected  function getRegexp()
+    protected function getRegexp()
     {
         if (null === $this->regexp) {
             $this->regexp = $this->buildRegexp($this->getSegments());

@@ -72,15 +72,15 @@ class UniversalLoader implements ISplAutoloader
      * <code>
      * array(
      *      'namespaces' => array(
-     *         'iHMS'     => '/path/to/iHMS/library',
+     *         'iHMS'     => '/path/to/iHMS/library'
      *      ),
      *      'prefixes' => array(
-     *          'Twig_'     => '/path/to/Twig/library',
+     *          'Twig_'     => '/path/to/Twig/library'
      *      ),
      *      'classMap => array(
      *          'classname' => 'path/to/class/file
      *      ),
-     *      'useIncludePath' => true,
+     *      'useIncludePath' => true
      * )
      * </code>
      *
@@ -123,7 +123,6 @@ class UniversalLoader implements ISplAutoloader
      */
     public function add($prefix, $path)
     {
-        // If namespace has already been specified, add path to array of possible paths -- don't overwrite
         if (isset($this->prefixes[$prefix])) {
             $path = array_merge($this->prefixes[$prefix], (array)$path);
         }
@@ -170,7 +169,7 @@ class UniversalLoader implements ISplAutoloader
     /**
      * Set value of flag indicating whether searching the include path should be enabled
      *
-     * @param bool $flag
+     * @param bool $flag Flag indicating whether searching the include path should be enabled
      * @return UniversalLoader
      */
     public function setUseIncludePath($flag)
@@ -221,7 +220,7 @@ class UniversalLoader implements ISplAutoloader
         if (isset($this->classMap[$class])) {
             $file = $this->classMap[$class];
         } else {
-            if (false !== $pos = strrpos($class, '\\')) { // namespaced class name
+            if (false !== ($pos = strrpos($class, '\\'))) { // namespaced class name
                 $classPath = str_replace('\\', DIRECTORY_SEPARATOR, substr($class, 0, $pos)) . DIRECTORY_SEPARATOR;
                 $className = substr($class, $pos + 1);
             } else { // PEAR-like class name

@@ -88,7 +88,7 @@ class Event implements IEventDescription
     {
         if (!is_string($name)) {
             throw new \InvalidArgumentException(
-                sprintf('%s(): expects a string, received %s', __METHOD__, gettype($name))
+                sprintf('%s(): expects a string; received %s', __METHOD__, gettype($name))
             );
         }
 
@@ -118,7 +118,7 @@ class Event implements IEventDescription
     {
         if (!is_string($context) && !is_object($context)) {
             throw new \InvalidArgumentException(
-                sprintf('%s(): expects string or object, received %s', __METHOD__, gettype($context))
+                sprintf('%s(): expects a string or an object; received %s', __METHOD__, gettype($context))
             );
         }
 

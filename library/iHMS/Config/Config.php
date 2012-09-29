@@ -85,7 +85,7 @@ class Config implements \ArrayAccess, \countable, \Iterator
     }
 
     /**
-     * Returns value of the givenitem or default value if item is not found
+     * Returns value of the given item or default value if item is not found
      *
      * @param string $itemName Item name to return
      * @param mixed $defaultValue Default value returned in case $itemName is not found

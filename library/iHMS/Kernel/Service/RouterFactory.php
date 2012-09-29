@@ -55,7 +55,7 @@ class RouterFactory implements IServiceFactory
         /** @var $config \iHMS\Config\Config */
         $config = $serviceLocator->get('Config');
 
-        if(PHP_SAPI !== 'cli') {
+        if (PHP_SAPI !== 'cli') {
             return HttpRouter::factory($config->get('router', array()));
         } else {
             throw new \RuntimeException(

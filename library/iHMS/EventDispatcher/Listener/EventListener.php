@@ -155,9 +155,7 @@ class EventListener
     protected function _setCallback($callback)
     {
         if (!is_callable($callback)) {
-            throw new \InvalidArgumentException(
-                sprintf('%s(): Invalid callback provided; expects callable', __METHOD__)
-            );
+            throw new \InvalidArgumentException(sprintf('%s(): Invalid callback provided; expects callable', __METHOD__));
         }
 
         $this->callback = $callback;

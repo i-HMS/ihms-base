@@ -198,7 +198,7 @@ class HeaderCollection implements \Iterator, \Countable
      *
      * Note: In case the header match to several headers of same type, a header collection is returned.
      *
-     * @param array|string $partialHeaderNames Partial header name to match against
+     * @param array|string $partialHeaderNames Partial header name(s) to match against
      * @return bool|IHeader|HeaderCollection
      * @todo UnitTest
      */

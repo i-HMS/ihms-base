@@ -59,7 +59,8 @@ class AutoloaderFactory
     /**
      * Factory for autoloaders
      *
-     * Options should be an array of the following structure:
+     * Expects an array with the following structure:
+     *
      * <code>
      * array(
      *     '<autoloader class name>' => $autoloaderOptions,
@@ -70,7 +71,7 @@ class AutoloaderFactory
      * with the spl_autoloader. If no options is passed in, the default autoloader will be registered. Also if an
      * autoloader is already instantiated, options will be added to it.
      *
-     * Note that the class names must be resolvable on the include_path or via the Zend library, using PSR-0 rules
+     * Note that the class names must be resolvable on the include_path or via the iHMS library, using PSR-0 rules
      * (unless the class has already been loaded).
      *
      * @throws \InvalidArgumentException

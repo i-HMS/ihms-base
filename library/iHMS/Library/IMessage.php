@@ -54,7 +54,6 @@ interface IMessage
      */
     public function getContent();
 
-
     /**
      * Allow PHP casting - Return string representation of the message
      *
